@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Normativa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Normativa de Edificación</h1>
+
+        <div class="card">
+            <h2>Datos Generales del Lote</h2>
+            <div class="input-group">
+                <label for="area_lote">Área del Lote (m²)</label>
+                <input type="number" id="area_lote" value="0">
+            </div>
+            <div class="input-group">
+                <label for="coeficiente_constructibilidad">Coeficiente de Constructibilidad</label>
+                <input type="number" id="coeficiente_constructibilidad" value="0">
+            </div>
+            <div class="input-group checkbox-group">
+                <input type="checkbox" id="fusion_lote">
+                <label for="fusion_lote">Fusión de Lote</label>
+            </div>
+            <div class="input-group">
+                <label for="altura">Altura (m)</label>
+                <input type="number" id="altura" value="0">
+            </div>
+            <div class="input-group checkbox-group">
+                <input type="checkbox" id="diseno_integrado">
+                <label for="diseno_integrado">Diseño Integrado</label>
+            </div>
+            <div class="input-group checkbox-group">
+                <input type="checkbox" id="DFL2">
+                <label for="DFL2">DFL2</label>
+            </div>
+            <div class="input-group">
+                <label for="pisos">Número de Pisos</label>
+                <input type="number" id="pisos" value="0">
+            </div>
+            <div class="input-group checkbox-group">
+                <input type="checkbox" id="sombras">
+                <label for="sombras">Afectado por Sombras</label>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Estacionamientos para Vivienda Colectiva</h2>
+            <div class="input-group">
+                <label for="viviendas_hasta_70">Viviendas con área ≤ 70 m²</label>
+                <input type="number" id="viviendas_hasta_70" value="0">
+            </div>
+            <div class="input-group">
+                <label for="viviendas_70_110">Viviendas con área > 70 m² y ≤ 110 m²</label>
+                <input type="number" id="viviendas_70_110" value="0">
+            </div>
+            <div class="input-group">
+                <label for="viviendas_110_140">Viviendas con área > 110 m² y ≤ 140 m²</label>
+                <input type="number" id="viviendas_110_140" value="0">
+            </div>
+            <div class="input-group">
+                <label for="viviendas_140_180">Viviendas con área > 140 m² y ≤ 180 m²</label>
+                <input type="number" id="viviendas_140_180" value="0">
+            </div>
+            <div class="input-group">
+                <label for="viviendas_mas_180">Viviendas con área ≥ 180 m²</label>
+                <input type="number" id="viviendas_mas_180" value="0">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Estacionamientos para Comercio</h2>
+            <div class="input-group">
+                <label for="area_comercio">Superficie edificada del comercio (m²)</label>
+                <input type="number" id="area_comercio" value="0">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Estacionamientos para Oficinas</h2>
+            <div class="input-group">
+                <label for="area_oficinas">Superficie edificada de las oficinas (m²)</label>
+                <input type="number" id="area_oficinas" value="0">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Carga de Ocupación</h2>
+            <div class="input-group">
+                <label for="carga_ocupacion">Carga de Ocupación Total del Edificio</label>
+                <input type="number" id="carga_ocupacion" value="51">
+            </div>
+        </div>
+
+        <button id="calculate-btn">Calcular</button>
+
+        <div id="results" class="card results-card" style="display: none;">
+            <h2>Resultados</h2>
+            <p id="superficie_construible_res"></p>
+            <p id="altura_final_res"></p>
+            <p id="pisos_final_res"></p>
+            <hr>
+            <h3>Detalle de Estacionamientos</h3>
+            <p id="est_vivienda_res"></p>
+            <p id="est_comercio_res"></p>
+            <p id="est_oficinas_res"></p>
+            <p id="total_estacionamientos_res"></p>
+            <p id="est_discapacidad_res"></p>
+            <p id="total_con_discapacidad_res"></p>
+            <hr>
+            <h3>Incentivo por Bicicletas</h3>
+            <div id="bicicletas_res"></div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
