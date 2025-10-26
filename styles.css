@@ -120,3 +120,26 @@ button#calculate-btn:hover {
 #bicicletas_res strong {
     color: #000;
 }
+
+.main-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.container {
+    flex: 2;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sidebar img {
+    max-width: 100%;
+    border-radius: 8px;
+}
