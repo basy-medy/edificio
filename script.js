@@ -80,11 +80,13 @@ document.getElementById('calculate-btn').addEventListener('click', function() {
 
     const total_con_discapacidad = total_estacionamientos + discapacidad;
 
+    // --- Carga de Ocupación --- 
+    const max_ocupacion = Math.floor((area_lote / 10000) * 508);
+
     // --- Rangos Estacionamiento (Bicicletas) ---
-    const carga_ocupacion = parseInt(document.getElementById('carga_ocupacion').value) || 0;
     let bicicletas_res_html = '';
-    if (carga_ocupacion <= 50) {
-        bicicletas_res_html = '<p>La normativa de bicicletas no aplica (carga de ocupación <= 50).</p>';
+    if (max_ocupacion <= 50) {
+        bicicletas_res_html = `<p>La normativa de bicicletas no aplica (carga de ocupación ${max_ocupacion} <= 50).</p>`;
     } else {
         const dotacion_inicial_autos = total_con_discapacidad;
         
@@ -110,11 +112,39 @@ document.getElementById('calculate-btn').addEventListener('click', function() {
     // --- Superficie Construible ---
     const superficie_construible = area_lote * coeficiente_constructibilidad;
 
+    // --- Calculate Total Built Area for Validation ---
+    // Using upper bounds for housing unit areas for a conservative estimate
+    const total_vivienda_area = 
+        (viviendas_hasta_70 * 70) + 
+        (viviendas_70_110 * 110) + 
+        (viviendas_110_140 * 140) + 
+        (viviendas_140_180 * 180) + 
+        (viviendas_mas_180 * 200); // Assuming 200m² for units >= 180m²
+
+    const total_built_area = total_vivienda_area + area_comercio + area_oficinas;
+
+    // --- Validation Check ---
+    if (total_built_area > superficie_construible) {
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('superficie_construible_res').innerHTML = `<p style="color: red; font-weight: bold;">Error: La superficie construida (${total_built_area.toFixed(2)} m²) excede la superficie máxima construible (${superficie_construible.toFixed(2)} m²).</p>`;
+        document.getElementById('altura_final_res').innerText = '';
+        document.getElementById('pisos_final_res').innerText = '';
+        document.getElementById('est_vivienda_res').innerText = '';
+        document.getElementById('est_comercio_res').innerText = '';
+        document.getElementById('est_oficinas_res').innerText = '';
+        document.getElementById('total_estacionamientos_res').innerText = '';
+        document.getElementById('est_discapacidad_res').innerText = '';
+        document.getElementById('total_con_discapacidad_res').innerText = '';
+        document.getElementById('bicicletas_res').innerHTML = '';
+        return; // Stop further calculations and display
+    }
+
     // --- Display Results ---
     document.getElementById('results').style.display = 'block';
     document.getElementById('superficie_construible_res').innerText = `Superficie Máxima Construible: ${superficie_construible.toFixed(2)} m²`;
     document.getElementById('altura_final_res').innerText = `Altura Final Permitida: ${altura.toFixed(2)} m`;
     document.getElementById('pisos_final_res').innerText = `Número de Pisos Final: ${pisos}`;
+    document.getElementById('max_ocupacion_res').innerText = `Ocupación Máxima: ${max_ocupacion} personas`;
     
     document.getElementById('est_vivienda_res').innerText = `Estacionamientos de Vivienda (incl. visitas): ${vivienda.toFixed(2)}`;
     document.getElementById('est_comercio_res').innerText = `Estacionamientos de Comercio: ${comercio}`;
